@@ -4,8 +4,22 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+django = "*"
+djangorestframework = "*"
+markdown = "*"
+python-dotenv = "*"
+drf-generators = "*"
+django-extensions = "*"
+psycopg2-binary = "*"
+drf-yasg = "*"
+pyyaml = "*"
+django-heroku = "*"
+django-filter = "*"
+pytest-django = "*"
+gunicorn = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
