@@ -1,0 +1,6 @@
+SECRET_KEY=b'\xda\xe0X\xd2\xe7\xaf\x15\xcd\xf9\xbfw\xab\xd3-\xde\x10'
+DB_NAME=library
+DB_USER=user
+DB_PASS=pass
+DB_HOST=localhost
+DB_PORT=5433

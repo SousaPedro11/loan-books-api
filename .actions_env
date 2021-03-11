@@ -1,0 +1,3 @@
+ACTIONS_DB_NAME=github-actions
+ACTIONS_DB_USER=postgres
+ACTIONS_DB_PASS=postgres
