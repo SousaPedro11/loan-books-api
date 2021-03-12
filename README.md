@@ -172,7 +172,7 @@ Exemplos do GET (all):
 
 ## Reserva de Livro
 
-- POST - /api/v1/books/{id}/reserve/ - reseva o livro específico (id), enviar pelo body da requisição o id do cliente;
+- POST - /api/v1/book/{id}/reserve/ - reseva o livro específico (id), enviar pelo body da requisição o id do cliente;
 - GET - /api/v1/reservation/ - obtém a lista das reservas existentes
 - POST - /api/v1/reservation/ - cadastra uma reserva a um cliente
 - GET - /api/v1/reservation/{id}/ - obtém detalhe de uma reserva
@@ -180,7 +180,7 @@ Exemplos do GET (all):
 - PATCH - /api/v1/reservation/{id}/ - atualiza parcialmente uma reserva específica
 - DELETE - /api/v1/reservation/{id}/ - deleta uma reserva específica
 
-Exemplo para "/api/v1/books/{id}/reserve/":
+Exemplo para "/api/v1/book/{id}/reserve/":
 
 ```json
 {
@@ -188,7 +188,7 @@ Exemplo para "/api/v1/books/{id}/reserve/":
 }
 ```
 
-Exemplo de objeto Lista de Reservas de um cliente "/api/v1/client/{id}/books/":
+Exemplo de objeto Lista de Reservas de um cliente "/api/v1/client/{id}/book/":
 
 ```json
 [
