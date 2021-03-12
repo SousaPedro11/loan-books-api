@@ -1,5 +1,10 @@
+from datetime import date
+from decimal import Decimal, getcontext
+
 from django.db import models
 from django.db.models import Lookup, Field
+
+from library_api.util import Penalty, InterestPerDay
 
 
 @Field.register_lookup
@@ -62,11 +67,12 @@ class Client(models.Model):
 
 
 class Reservation(models.Model):
+    MAX_DAYS = 3
     book = models.ForeignKey('Book', on_delete=models.PROTECT, related_name='reservation_books')
     client = models.ForeignKey('Client', on_delete=models.PROTECT, related_name='client_reservation')
     reserved_at = models.DateField(auto_now_add=True)
     returned_at = models.DateField(null=True, blank=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'tbl_reservation'
@@ -74,6 +80,29 @@ class Reservation(models.Model):
         verbose_name = "Reservation"
         verbose_name_plural = "Reservations"
         ordering = ['-reserved_at', 'book__title']
+
+    def save(self, *args, **kwargs):
+        super(Reservation, self).save(*args, **kwargs)
+        book = self.book
+        book.reserved = True
+        book.save()
+
+    @property
+    def delayed_days(self):
+        today = date.today()
+
+        loan_days = today - self.reserved_at
+        return loan_days.days
+
+    @property
+    def tax(self):
+        getcontext().prec = 4
+        if self.delayed_days > 0:
+            reservation_price = self.book.reservation_price
+            penalty = Penalty(self.delayed_days).calculate(reservation_price)
+            interest_per_day = InterestPerDay(self.delayed_days).calculate(reservation_price)
+            return penalty + interest_per_day
+        return Decimal(0)
 
     def __str__(self):
         return f'{self.client.username}: {self.book.__str__()}'
