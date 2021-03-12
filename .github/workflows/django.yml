@@ -44,10 +44,4 @@ jobs:
 
     - name: Test
       run: |
-        python manage.py test --verbosity 3
-
-    - name: Python Django Coverage GitHub Action
-      uses: dc740/django-coveragepy-github-action@0.9
-      with:
-        # Minimum allowed code coverage
-        minimum-coverage: 80
+        pytest -vvv
