@@ -52,8 +52,6 @@ class ClientViewSet(BaseDefaultViewset):
         return Response(reservation_serializer.data, status.HTTP_200_OK)
 
 
-
-
 class ReservationViewSet(BaseDefaultViewset):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
