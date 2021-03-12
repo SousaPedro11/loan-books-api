@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
-from library_api import views
 
+from library_api import views
 
 router = SimpleRouter()
 

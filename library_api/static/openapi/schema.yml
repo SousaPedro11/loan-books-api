@@ -1,0 +1,2296 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/book/:
+    get:
+      operationId: listBooks
+      description: ''
+      parameters:
+      - name: size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: title
+        required: false
+        in: query
+        description: title
+        schema:
+          type: string
+      - name: subtitle
+        required: false
+        in: query
+        description: subtitle
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      - name: isbn
+        required: false
+        in: query
+        description: isbn
+        schema:
+          type: string
+      - name: reservation_price
+        required: false
+        in: query
+        description: reservation_price
+        schema:
+          type: string
+      - name: reserved
+        required: false
+        in: query
+        description: reserved
+        schema:
+          type: string
+      - name: title__istartswith
+        required: false
+        in: query
+        description: title__istartswith
+        schema:
+          type: string
+      - name: title__icontains
+        required: false
+        in: query
+        description: title__icontains
+        schema:
+          type: string
+      - name: subtitle__istartswith
+        required: false
+        in: query
+        description: subtitle__istartswith
+        schema:
+          type: string
+      - name: subtitle__icontains
+        required: false
+        in: query
+        description: subtitle__icontains
+        schema:
+          type: string
+      - name: author__istartswith
+        required: false
+        in: query
+        description: author__istartswith
+        schema:
+          type: string
+      - name: author__icontains
+        required: false
+        in: query
+        description: author__icontains
+        schema:
+          type: string
+      - name: isbn__istartswith
+        required: false
+        in: query
+        description: isbn__istartswith
+        schema:
+          type: string
+      - name: isbn__icontains
+        required: false
+        in: query
+        description: isbn__icontains
+        schema:
+          type: string
+      - name: reservation_price_ne
+        required: false
+        in: query
+        description: reservation_price_ne
+        schema:
+          type: string
+      - name: reservation_price_lt
+        required: false
+        in: query
+        description: reservation_price_lt
+        schema:
+          type: string
+      - name: reservation_price_gt
+        required: false
+        in: query
+        description: reservation_price_gt
+        schema:
+          type: string
+      - name: reservation_price_lte
+        required: false
+        in: query
+        description: reservation_price_lte
+        schema:
+          type: string
+      - name: reservation_price_gte
+        required: false
+        in: query
+        description: reservation_price_gte
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Books
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - title
+          - -title
+          - subtitle
+          - -subtitle
+          - author
+          - -author
+          - isbn
+          - -isbn
+          - edition
+          - -edition
+          - pages
+          - -pages
+          - reservation_price
+          - -reservation_price
+          - reserved
+          - -reserved
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&size=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&size=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createBook
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+  /api/v1/book/{id}/:
+    get:
+      operationId: retrieveBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Book.
+        schema:
+          type: string
+      - name: title
+        required: false
+        in: query
+        description: title
+        schema:
+          type: string
+      - name: subtitle
+        required: false
+        in: query
+        description: subtitle
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      - name: isbn
+        required: false
+        in: query
+        description: isbn
+        schema:
+          type: string
+      - name: reservation_price
+        required: false
+        in: query
+        description: reservation_price
+        schema:
+          type: string
+      - name: reserved
+        required: false
+        in: query
+        description: reserved
+        schema:
+          type: string
+      - name: title__istartswith
+        required: false
+        in: query
+        description: title__istartswith
+        schema:
+          type: string
+      - name: title__icontains
+        required: false
+        in: query
+        description: title__icontains
+        schema:
+          type: string
+      - name: subtitle__istartswith
+        required: false
+        in: query
+        description: subtitle__istartswith
+        schema:
+          type: string
+      - name: subtitle__icontains
+        required: false
+        in: query
+        description: subtitle__icontains
+        schema:
+          type: string
+      - name: author__istartswith
+        required: false
+        in: query
+        description: author__istartswith
+        schema:
+          type: string
+      - name: author__icontains
+        required: false
+        in: query
+        description: author__icontains
+        schema:
+          type: string
+      - name: isbn__istartswith
+        required: false
+        in: query
+        description: isbn__istartswith
+        schema:
+          type: string
+      - name: isbn__icontains
+        required: false
+        in: query
+        description: isbn__icontains
+        schema:
+          type: string
+      - name: reservation_price_ne
+        required: false
+        in: query
+        description: reservation_price_ne
+        schema:
+          type: string
+      - name: reservation_price_lt
+        required: false
+        in: query
+        description: reservation_price_lt
+        schema:
+          type: string
+      - name: reservation_price_gt
+        required: false
+        in: query
+        description: reservation_price_gt
+        schema:
+          type: string
+      - name: reservation_price_lte
+        required: false
+        in: query
+        description: reservation_price_lte
+        schema:
+          type: string
+      - name: reservation_price_gte
+        required: false
+        in: query
+        description: reservation_price_gte
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Books
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - title
+          - -title
+          - subtitle
+          - -subtitle
+          - author
+          - -author
+          - isbn
+          - -isbn
+          - edition
+          - -edition
+          - pages
+          - -pages
+          - reservation_price
+          - -reservation_price
+          - reserved
+          - -reserved
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Book.
+        schema:
+          type: string
+      - name: title
+        required: false
+        in: query
+        description: title
+        schema:
+          type: string
+      - name: subtitle
+        required: false
+        in: query
+        description: subtitle
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      - name: isbn
+        required: false
+        in: query
+        description: isbn
+        schema:
+          type: string
+      - name: reservation_price
+        required: false
+        in: query
+        description: reservation_price
+        schema:
+          type: string
+      - name: reserved
+        required: false
+        in: query
+        description: reserved
+        schema:
+          type: string
+      - name: title__istartswith
+        required: false
+        in: query
+        description: title__istartswith
+        schema:
+          type: string
+      - name: title__icontains
+        required: false
+        in: query
+        description: title__icontains
+        schema:
+          type: string
+      - name: subtitle__istartswith
+        required: false
+        in: query
+        description: subtitle__istartswith
+        schema:
+          type: string
+      - name: subtitle__icontains
+        required: false
+        in: query
+        description: subtitle__icontains
+        schema:
+          type: string
+      - name: author__istartswith
+        required: false
+        in: query
+        description: author__istartswith
+        schema:
+          type: string
+      - name: author__icontains
+        required: false
+        in: query
+        description: author__icontains
+        schema:
+          type: string
+      - name: isbn__istartswith
+        required: false
+        in: query
+        description: isbn__istartswith
+        schema:
+          type: string
+      - name: isbn__icontains
+        required: false
+        in: query
+        description: isbn__icontains
+        schema:
+          type: string
+      - name: reservation_price_ne
+        required: false
+        in: query
+        description: reservation_price_ne
+        schema:
+          type: string
+      - name: reservation_price_lt
+        required: false
+        in: query
+        description: reservation_price_lt
+        schema:
+          type: string
+      - name: reservation_price_gt
+        required: false
+        in: query
+        description: reservation_price_gt
+        schema:
+          type: string
+      - name: reservation_price_lte
+        required: false
+        in: query
+        description: reservation_price_lte
+        schema:
+          type: string
+      - name: reservation_price_gte
+        required: false
+        in: query
+        description: reservation_price_gte
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Books
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - title
+          - -title
+          - subtitle
+          - -subtitle
+          - author
+          - -author
+          - isbn
+          - -isbn
+          - edition
+          - -edition
+          - pages
+          - -pages
+          - reservation_price
+          - -reservation_price
+          - reserved
+          - -reserved
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Book.
+        schema:
+          type: string
+      - name: title
+        required: false
+        in: query
+        description: title
+        schema:
+          type: string
+      - name: subtitle
+        required: false
+        in: query
+        description: subtitle
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      - name: isbn
+        required: false
+        in: query
+        description: isbn
+        schema:
+          type: string
+      - name: reservation_price
+        required: false
+        in: query
+        description: reservation_price
+        schema:
+          type: string
+      - name: reserved
+        required: false
+        in: query
+        description: reserved
+        schema:
+          type: string
+      - name: title__istartswith
+        required: false
+        in: query
+        description: title__istartswith
+        schema:
+          type: string
+      - name: title__icontains
+        required: false
+        in: query
+        description: title__icontains
+        schema:
+          type: string
+      - name: subtitle__istartswith
+        required: false
+        in: query
+        description: subtitle__istartswith
+        schema:
+          type: string
+      - name: subtitle__icontains
+        required: false
+        in: query
+        description: subtitle__icontains
+        schema:
+          type: string
+      - name: author__istartswith
+        required: false
+        in: query
+        description: author__istartswith
+        schema:
+          type: string
+      - name: author__icontains
+        required: false
+        in: query
+        description: author__icontains
+        schema:
+          type: string
+      - name: isbn__istartswith
+        required: false
+        in: query
+        description: isbn__istartswith
+        schema:
+          type: string
+      - name: isbn__icontains
+        required: false
+        in: query
+        description: isbn__icontains
+        schema:
+          type: string
+      - name: reservation_price_ne
+        required: false
+        in: query
+        description: reservation_price_ne
+        schema:
+          type: string
+      - name: reservation_price_lt
+        required: false
+        in: query
+        description: reservation_price_lt
+        schema:
+          type: string
+      - name: reservation_price_gt
+        required: false
+        in: query
+        description: reservation_price_gt
+        schema:
+          type: string
+      - name: reservation_price_lte
+        required: false
+        in: query
+        description: reservation_price_lte
+        schema:
+          type: string
+      - name: reservation_price_gte
+        required: false
+        in: query
+        description: reservation_price_gte
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Books
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - title
+          - -title
+          - subtitle
+          - -subtitle
+          - author
+          - -author
+          - isbn
+          - -isbn
+          - edition
+          - -edition
+          - pages
+          - -pages
+          - reservation_price
+          - -reservation_price
+          - reserved
+          - -reserved
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Book.
+        schema:
+          type: string
+      - name: title
+        required: false
+        in: query
+        description: title
+        schema:
+          type: string
+      - name: subtitle
+        required: false
+        in: query
+        description: subtitle
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      - name: isbn
+        required: false
+        in: query
+        description: isbn
+        schema:
+          type: string
+      - name: reservation_price
+        required: false
+        in: query
+        description: reservation_price
+        schema:
+          type: string
+      - name: reserved
+        required: false
+        in: query
+        description: reserved
+        schema:
+          type: string
+      - name: title__istartswith
+        required: false
+        in: query
+        description: title__istartswith
+        schema:
+          type: string
+      - name: title__icontains
+        required: false
+        in: query
+        description: title__icontains
+        schema:
+          type: string
+      - name: subtitle__istartswith
+        required: false
+        in: query
+        description: subtitle__istartswith
+        schema:
+          type: string
+      - name: subtitle__icontains
+        required: false
+        in: query
+        description: subtitle__icontains
+        schema:
+          type: string
+      - name: author__istartswith
+        required: false
+        in: query
+        description: author__istartswith
+        schema:
+          type: string
+      - name: author__icontains
+        required: false
+        in: query
+        description: author__icontains
+        schema:
+          type: string
+      - name: isbn__istartswith
+        required: false
+        in: query
+        description: isbn__istartswith
+        schema:
+          type: string
+      - name: isbn__icontains
+        required: false
+        in: query
+        description: isbn__icontains
+        schema:
+          type: string
+      - name: reservation_price_ne
+        required: false
+        in: query
+        description: reservation_price_ne
+        schema:
+          type: string
+      - name: reservation_price_lt
+        required: false
+        in: query
+        description: reservation_price_lt
+        schema:
+          type: string
+      - name: reservation_price_gt
+        required: false
+        in: query
+        description: reservation_price_gt
+        schema:
+          type: string
+      - name: reservation_price_lte
+        required: false
+        in: query
+        description: reservation_price_lte
+        schema:
+          type: string
+      - name: reservation_price_gte
+        required: false
+        in: query
+        description: reservation_price_gte
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Books
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - title
+          - -title
+          - subtitle
+          - -subtitle
+          - author
+          - -author
+          - isbn
+          - -isbn
+          - edition
+          - -edition
+          - pages
+          - -pages
+          - reservation_price
+          - -reservation_price
+          - reserved
+          - -reserved
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/v1/client/:
+    get:
+      operationId: listClients
+      description: ''
+      parameters:
+      - name: size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: username
+        required: false
+        in: query
+        description: username
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: name__istartswith
+        required: false
+        in: query
+        description: name__istartswith
+        schema:
+          type: string
+      - name: name__icontains
+        required: false
+        in: query
+        description: name__icontains
+        schema:
+          type: string
+      - name: username__istartswith
+        required: false
+        in: query
+        description: username__istartswith
+        schema:
+          type: string
+      - name: username__icontains
+        required: false
+        in: query
+        description: username__icontains
+        schema:
+          type: string
+      - name: email__istartswith
+        required: false
+        in: query
+        description: email__istartswith
+        schema:
+          type: string
+      - name: email__icontains
+        required: false
+        in: query
+        description: email__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Clients
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - name
+          - -name
+          - username
+          - -username
+          - email
+          - -email
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&size=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&size=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createClient
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
+  /api/v1/client/{id}/:
+    get:
+      operationId: retrieveClient
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Client.
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: username
+        required: false
+        in: query
+        description: username
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: name__istartswith
+        required: false
+        in: query
+        description: name__istartswith
+        schema:
+          type: string
+      - name: name__icontains
+        required: false
+        in: query
+        description: name__icontains
+        schema:
+          type: string
+      - name: username__istartswith
+        required: false
+        in: query
+        description: username__istartswith
+        schema:
+          type: string
+      - name: username__icontains
+        required: false
+        in: query
+        description: username__icontains
+        schema:
+          type: string
+      - name: email__istartswith
+        required: false
+        in: query
+        description: email__istartswith
+        schema:
+          type: string
+      - name: email__icontains
+        required: false
+        in: query
+        description: email__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Clients
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - name
+          - -name
+          - username
+          - -username
+          - email
+          - -email
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateClient
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Client.
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: username
+        required: false
+        in: query
+        description: username
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: name__istartswith
+        required: false
+        in: query
+        description: name__istartswith
+        schema:
+          type: string
+      - name: name__icontains
+        required: false
+        in: query
+        description: name__icontains
+        schema:
+          type: string
+      - name: username__istartswith
+        required: false
+        in: query
+        description: username__istartswith
+        schema:
+          type: string
+      - name: username__icontains
+        required: false
+        in: query
+        description: username__icontains
+        schema:
+          type: string
+      - name: email__istartswith
+        required: false
+        in: query
+        description: email__istartswith
+        schema:
+          type: string
+      - name: email__icontains
+        required: false
+        in: query
+        description: email__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Clients
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - name
+          - -name
+          - username
+          - -username
+          - email
+          - -email
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateClient
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Client.
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: username
+        required: false
+        in: query
+        description: username
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: name__istartswith
+        required: false
+        in: query
+        description: name__istartswith
+        schema:
+          type: string
+      - name: name__icontains
+        required: false
+        in: query
+        description: name__icontains
+        schema:
+          type: string
+      - name: username__istartswith
+        required: false
+        in: query
+        description: username__istartswith
+        schema:
+          type: string
+      - name: username__icontains
+        required: false
+        in: query
+        description: username__icontains
+        schema:
+          type: string
+      - name: email__istartswith
+        required: false
+        in: query
+        description: email__istartswith
+        schema:
+          type: string
+      - name: email__icontains
+        required: false
+        in: query
+        description: email__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Clients
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - name
+          - -name
+          - username
+          - -username
+          - email
+          - -email
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyClient
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Client.
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: username
+        required: false
+        in: query
+        description: username
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: name__istartswith
+        required: false
+        in: query
+        description: name__istartswith
+        schema:
+          type: string
+      - name: name__icontains
+        required: false
+        in: query
+        description: name__icontains
+        schema:
+          type: string
+      - name: username__istartswith
+        required: false
+        in: query
+        description: username__istartswith
+        schema:
+          type: string
+      - name: username__icontains
+        required: false
+        in: query
+        description: username__icontains
+        schema:
+          type: string
+      - name: email__istartswith
+        required: false
+        in: query
+        description: email__istartswith
+        schema:
+          type: string
+      - name: email__icontains
+        required: false
+        in: query
+        description: email__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Clients
+        schema:
+          type: string
+          enum:
+          - id
+          - -id
+          - name
+          - -name
+          - username
+          - -username
+          - email
+          - -email
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/v1/reservation/:
+    get:
+      operationId: listReservations
+      description: ''
+      parameters:
+      - name: size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: client_name
+        required: false
+        in: query
+        description: client_name
+        schema:
+          type: string
+      - name: client_username
+        required: false
+        in: query
+        description: client_username
+        schema:
+          type: string
+      - name: book_title
+        required: false
+        in: query
+        description: book_title
+        schema:
+          type: string
+      - name: book_author
+        required: false
+        in: query
+        description: book_author
+        schema:
+          type: string
+      - name: reserved_at
+        required: false
+        in: query
+        description: reserved_at
+        schema:
+          type: string
+      - name: returned_at
+        required: false
+        in: query
+        description: returned_at
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: client_name__istartswith
+        required: false
+        in: query
+        description: client_name__istartswith
+        schema:
+          type: string
+      - name: client_name__icontains
+        required: false
+        in: query
+        description: client_name__icontains
+        schema:
+          type: string
+      - name: client_username__istartswith
+        required: false
+        in: query
+        description: client_username__istartswith
+        schema:
+          type: string
+      - name: client_username__icontains
+        required: false
+        in: query
+        description: client_username__icontains
+        schema:
+          type: string
+      - name: book_title__istartswith
+        required: false
+        in: query
+        description: book_title__istartswith
+        schema:
+          type: string
+      - name: book_title__icontains
+        required: false
+        in: query
+        description: book_title__icontains
+        schema:
+          type: string
+      - name: book_author__istartswith
+        required: false
+        in: query
+        description: book_author__istartswith
+        schema:
+          type: string
+      - name: book_author__icontains
+        required: false
+        in: query
+        description: book_author__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Reservations
+        schema:
+          type: string
+          enum:
+          - client_name
+          - -client_name
+          - client_username
+          - -client_username
+          - book_title
+          - -book_title
+          - book_author
+          - -book_author
+          - id
+          - -id
+          - book
+          - -book
+          - client
+          - -client
+          - reserved_at
+          - -reserved_at
+          - returned_at
+          - -returned_at
+          - active
+          - -active
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&size=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&size=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reservation'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createReservation
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: ''
+      tags:
+      - api
+  /api/v1/reservation/{id}/:
+    get:
+      operationId: retrieveReservation
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Reservation.
+        schema:
+          type: string
+      - name: client_name
+        required: false
+        in: query
+        description: client_name
+        schema:
+          type: string
+      - name: client_username
+        required: false
+        in: query
+        description: client_username
+        schema:
+          type: string
+      - name: book_title
+        required: false
+        in: query
+        description: book_title
+        schema:
+          type: string
+      - name: book_author
+        required: false
+        in: query
+        description: book_author
+        schema:
+          type: string
+      - name: reserved_at
+        required: false
+        in: query
+        description: reserved_at
+        schema:
+          type: string
+      - name: returned_at
+        required: false
+        in: query
+        description: returned_at
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: client_name__istartswith
+        required: false
+        in: query
+        description: client_name__istartswith
+        schema:
+          type: string
+      - name: client_name__icontains
+        required: false
+        in: query
+        description: client_name__icontains
+        schema:
+          type: string
+      - name: client_username__istartswith
+        required: false
+        in: query
+        description: client_username__istartswith
+        schema:
+          type: string
+      - name: client_username__icontains
+        required: false
+        in: query
+        description: client_username__icontains
+        schema:
+          type: string
+      - name: book_title__istartswith
+        required: false
+        in: query
+        description: book_title__istartswith
+        schema:
+          type: string
+      - name: book_title__icontains
+        required: false
+        in: query
+        description: book_title__icontains
+        schema:
+          type: string
+      - name: book_author__istartswith
+        required: false
+        in: query
+        description: book_author__istartswith
+        schema:
+          type: string
+      - name: book_author__icontains
+        required: false
+        in: query
+        description: book_author__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Reservations
+        schema:
+          type: string
+          enum:
+          - client_name
+          - -client_name
+          - client_username
+          - -client_username
+          - book_title
+          - -book_title
+          - book_author
+          - -book_author
+          - id
+          - -id
+          - book
+          - -book
+          - client
+          - -client
+          - reserved_at
+          - -reserved_at
+          - returned_at
+          - -returned_at
+          - active
+          - -active
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateReservation
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Reservation.
+        schema:
+          type: string
+      - name: client_name
+        required: false
+        in: query
+        description: client_name
+        schema:
+          type: string
+      - name: client_username
+        required: false
+        in: query
+        description: client_username
+        schema:
+          type: string
+      - name: book_title
+        required: false
+        in: query
+        description: book_title
+        schema:
+          type: string
+      - name: book_author
+        required: false
+        in: query
+        description: book_author
+        schema:
+          type: string
+      - name: reserved_at
+        required: false
+        in: query
+        description: reserved_at
+        schema:
+          type: string
+      - name: returned_at
+        required: false
+        in: query
+        description: returned_at
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: client_name__istartswith
+        required: false
+        in: query
+        description: client_name__istartswith
+        schema:
+          type: string
+      - name: client_name__icontains
+        required: false
+        in: query
+        description: client_name__icontains
+        schema:
+          type: string
+      - name: client_username__istartswith
+        required: false
+        in: query
+        description: client_username__istartswith
+        schema:
+          type: string
+      - name: client_username__icontains
+        required: false
+        in: query
+        description: client_username__icontains
+        schema:
+          type: string
+      - name: book_title__istartswith
+        required: false
+        in: query
+        description: book_title__istartswith
+        schema:
+          type: string
+      - name: book_title__icontains
+        required: false
+        in: query
+        description: book_title__icontains
+        schema:
+          type: string
+      - name: book_author__istartswith
+        required: false
+        in: query
+        description: book_author__istartswith
+        schema:
+          type: string
+      - name: book_author__icontains
+        required: false
+        in: query
+        description: book_author__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Reservations
+        schema:
+          type: string
+          enum:
+          - client_name
+          - -client_name
+          - client_username
+          - -client_username
+          - book_title
+          - -book_title
+          - book_author
+          - -book_author
+          - id
+          - -id
+          - book
+          - -book
+          - client
+          - -client
+          - reserved_at
+          - -reserved_at
+          - returned_at
+          - -returned_at
+          - active
+          - -active
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateReservation
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Reservation.
+        schema:
+          type: string
+      - name: client_name
+        required: false
+        in: query
+        description: client_name
+        schema:
+          type: string
+      - name: client_username
+        required: false
+        in: query
+        description: client_username
+        schema:
+          type: string
+      - name: book_title
+        required: false
+        in: query
+        description: book_title
+        schema:
+          type: string
+      - name: book_author
+        required: false
+        in: query
+        description: book_author
+        schema:
+          type: string
+      - name: reserved_at
+        required: false
+        in: query
+        description: reserved_at
+        schema:
+          type: string
+      - name: returned_at
+        required: false
+        in: query
+        description: returned_at
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: client_name__istartswith
+        required: false
+        in: query
+        description: client_name__istartswith
+        schema:
+          type: string
+      - name: client_name__icontains
+        required: false
+        in: query
+        description: client_name__icontains
+        schema:
+          type: string
+      - name: client_username__istartswith
+        required: false
+        in: query
+        description: client_username__istartswith
+        schema:
+          type: string
+      - name: client_username__icontains
+        required: false
+        in: query
+        description: client_username__icontains
+        schema:
+          type: string
+      - name: book_title__istartswith
+        required: false
+        in: query
+        description: book_title__istartswith
+        schema:
+          type: string
+      - name: book_title__icontains
+        required: false
+        in: query
+        description: book_title__icontains
+        schema:
+          type: string
+      - name: book_author__istartswith
+        required: false
+        in: query
+        description: book_author__istartswith
+        schema:
+          type: string
+      - name: book_author__icontains
+        required: false
+        in: query
+        description: book_author__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Reservations
+        schema:
+          type: string
+          enum:
+          - client_name
+          - -client_name
+          - client_username
+          - -client_username
+          - book_title
+          - -book_title
+          - book_author
+          - -book_author
+          - id
+          - -id
+          - book
+          - -book
+          - client
+          - -client
+          - reserved_at
+          - -reserved_at
+          - returned_at
+          - -returned_at
+          - active
+          - -active
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyReservation
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Reservation.
+        schema:
+          type: string
+      - name: client_name
+        required: false
+        in: query
+        description: client_name
+        schema:
+          type: string
+      - name: client_username
+        required: false
+        in: query
+        description: client_username
+        schema:
+          type: string
+      - name: book_title
+        required: false
+        in: query
+        description: book_title
+        schema:
+          type: string
+      - name: book_author
+        required: false
+        in: query
+        description: book_author
+        schema:
+          type: string
+      - name: reserved_at
+        required: false
+        in: query
+        description: reserved_at
+        schema:
+          type: string
+      - name: returned_at
+        required: false
+        in: query
+        description: returned_at
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: client_name__istartswith
+        required: false
+        in: query
+        description: client_name__istartswith
+        schema:
+          type: string
+      - name: client_name__icontains
+        required: false
+        in: query
+        description: client_name__icontains
+        schema:
+          type: string
+      - name: client_username__istartswith
+        required: false
+        in: query
+        description: client_username__istartswith
+        schema:
+          type: string
+      - name: client_username__icontains
+        required: false
+        in: query
+        description: client_username__icontains
+        schema:
+          type: string
+      - name: book_title__istartswith
+        required: false
+        in: query
+        description: book_title__istartswith
+        schema:
+          type: string
+      - name: book_title__icontains
+        required: false
+        in: query
+        description: book_title__icontains
+        schema:
+          type: string
+      - name: book_author__istartswith
+        required: false
+        in: query
+        description: book_author__istartswith
+        schema:
+          type: string
+      - name: book_author__icontains
+        required: false
+        in: query
+        description: book_author__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Ordenation of Reservations
+        schema:
+          type: string
+          enum:
+          - client_name
+          - -client_name
+          - client_username
+          - -client_username
+          - book_title
+          - -book_title
+          - book_author
+          - -book_author
+          - id
+          - -id
+          - book
+          - -book
+          - client
+          - -client
+          - reserved_at
+          - -reserved_at
+          - returned_at
+          - -returned_at
+          - active
+          - -active
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        subtitle:
+          type: string
+          nullable: true
+          maxLength: 255
+        author:
+          type: string
+          maxLength: 255
+        isbn:
+          type: string
+          nullable: true
+          maxLength: 20
+        edition:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          default: 1
+        pages:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          nullable: true
+        reservation_price:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 1000000
+          minimum: -1000000
+        reserved:
+          type: boolean
+      required:
+      - title
+      - author
+      - reservation_price
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        username:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 254
+      required:
+      - name
+      - username
+      - email
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reserved_at:
+          type: string
+          format: date
+          readOnly: true
+        returned_at:
+          type: string
+          format: date
+          nullable: true
+        active:
+          type: boolean
+        book:
+          type: integer
+        client:
+          type: integer
+      required:
+      - book
+      - client
