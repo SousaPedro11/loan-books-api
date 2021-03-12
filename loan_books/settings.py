@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'drf_yasg',
     'django_filters',
+    'mimesis',
+    'mimesis_factory',
+    'factory',
+    'faker',
 
     'library_api',
 ]
