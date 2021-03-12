@@ -32,12 +32,37 @@ class ReservationListSerializer(ModelSerializer):
 
 
 class ReservationSerializer(ModelSerializer):
+    price = serializers.SerializerMethodField()
+    total_price = serializers.SerializerMethodField()
+
     class Meta:
         model = Reservation
-        fields = ('id', 'book', 'client', 'reserved_at', 'returned_at', 'active')
+        fields = (
+            'id',
+            'book',
+            'client',
+            'reserved_at',
+            'returned_at',
+            'active',
+            'delayed_days',
+            'price',
+            'total_price'
+        )
+        read_only_fields = ('price', 'total_price')
 
     def to_representation(self, instance):
         ret = super(ReservationSerializer, self).to_representation(instance)
         ret['book'] = instance.book.__str__()
         ret['client'] = instance.client.__str__()
         return ret
+
+    def get_price(self, instance):
+        return instance.book.reservation_price
+
+    def get_total_price(self, instance):
+        return instance.tax
+
+    def validate_book(self, book):
+        if book.reserved:
+            raise serializers.ValidationError("The book already reserved")
+        return book
