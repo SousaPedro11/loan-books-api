@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]
+        python-version: [ 3.9 ]
     services:
       db:
         image: postgres
@@ -26,22 +26,27 @@ jobs:
           - 5432:5432
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
 
-    - name: Install Dependencies
-      uses: BSFishy/pip-action@v1
-      with:
-        requirements: requirements.txt
+      - name: Install Dependencies
+        uses: BSFishy/pip-action@v1
+        with:
+          requirements: requirements.txt
 
-    - name: 'Run PEP8'
-      uses: quentinguidee/pep8-action@v1
-      with:
-        arguments: '--exclude=./*/migrations/* --max-line-length=120'
+      - name: 'Run PEP8'
+        uses: quentinguidee/pep8-action@v1
+        with:
+          arguments: '--exclude=./*/migrations/* --max-line-length=120'
 
-    - name: Test
-      run: |
-        pytest -vvv
+      - name: Test
+        run: |
+          pytest -vvv
+
+      - name: "Python Django Coverage GitHub Action"
+          uses: dc740/django-coveragepy-github-action@0.9
+          with:
+            minimum-coverage: 80
