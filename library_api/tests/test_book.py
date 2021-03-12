@@ -11,7 +11,7 @@ from library_api.tests.factories.book import BookFactory
 class TestBook(TestCase):
 
     def setUp(self) -> None:
-        self.length = 3
+        self.length = 70
         self.books = BookFactory.create_batch(self.length)
         self.url_list = reverse('book-list')
 
@@ -20,10 +20,53 @@ class TestBook(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_size(self):
+        size = 10
+        response = self.client.get(reverse('book-list'), {'size': size})
+
+        results = response.data.get('results', 0)
+
+        self.assertEqual(len(results), size)
+
+    def test_offset_10(self):
+        offset = 10
+        size = 10
+        response = self.client.get(reverse('book-list'), {'offset': offset, 'size': size, 'ordering': 'id'})
+
+        data = response.data
+        results = data.get('results', 0)
+
+        self.assertEqual(len(results), 10)
+        self.assertEqual(data.get('next').get('offset'), offset + size)
+        self.assertEqual(data.get('previous').get('offset'), offset - size)
+
+    def test_offset_20(self):
+        offset = 20
+        size = 10
+        response = self.client.get(reverse('book-list'), {'offset': offset, 'size': size, 'ordering': 'id'})
+
+        data = response.data
+        results = data.get('results', 0)
+
+        self.assertEqual(len(results), 10)
+        self.assertEqual(data.get('next').get('offset'), offset + size)
+        self.assertEqual(data.get('previous').get('offset'), offset - size)
+
+    def test_offset_last(self):
+        size = 10
+        offset = (len(self.books)//size) * size
+        response = self.client.get(reverse('book-list'), {'offset': offset, 'size': size, 'ordering': 'id'})
+
+        data = response.data
+
+        self.assertEqual(data.get('next'), None)
+        self.assertEqual(data.get('previous').get('offset'), offset - size)
+
     def test_get_all(self):
         response = self.client.get(self.url_list)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(int(json.loads(response.content)["count"]), self.length)
 
     def test_get_only(self):
         book = self.books[-1]
@@ -35,7 +78,7 @@ class TestBook(TestCase):
         self.assertEqual(response.data, expected.data)
 
     def test_get_only_not_found(self):
-        url = reverse('book-detail', kwargs={'pk': self.length * 100})
+        url = reverse('book-detail', kwargs={'pk': self.length * 10})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

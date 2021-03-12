@@ -19,6 +19,8 @@ pytest-django = "*"
 gunicorn = "*"
 mimesis-factory = "*"
 factory-boy = "*"
+coverage = "*"
+pytest-cov = "*"
 
 [dev-packages]
 autopep8 = "*"
