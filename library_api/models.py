@@ -52,7 +52,7 @@ class Book(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=20, unique=True)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
 
     class Meta:
         db_table = 'tbl_client'
