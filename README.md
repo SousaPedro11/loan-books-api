@@ -2,7 +2,7 @@
 
 API Rest para uma livraria online.
 
-# Recursos
+# Problema
 
 O usuário pode gerenciar livros, reservas de livro e clientes. O tempo padrão para cada reserva são três dias. Deverá
 ser calculada uma multa e juros ao dia sobre o valor da reserva, de acordo com as seguintes regras:
@@ -13,6 +13,15 @@ ser calculada uma multa e juros ao dia sobre o valor da reserva, de acordo com a
 |  Até 3 dias |  3% | 0.2%
 |  Acimca de 3 dias |  5% | 0.4%
 |  Acima de 5 dias |  7% | 0.6%
+
+## Forma de cálculo
+Os cálculos serão feitos de forma não linear, visto que os juros são variáveis.
+Portanto, os juros serão fragmentados por período.
+
+Caso tenha 3 dias, os juros serão calculados a partir desse. Caso tenha 5 dias, os juros serão a soma da regra para os
+3 dias mais a regra para a diferença dos períodos das duas regras.
+
+Tanto os valores fixos por intervalo quanto os vaiáveis por dia serão calculados a partir do valor base.
 
 # API v1
 
