@@ -1429,6 +1429,26 @@ paths:
           description: ''
       tags:
       - api
+  /api/v1/client/{id}/books/:
+    get:
+      operationId: booksClient
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Client.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: ''
+      tags:
+      - api
   /api/v1/reservation/:
     get:
       operationId: listReservations
