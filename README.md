@@ -2,6 +2,8 @@
 
 API Rest para uma livraria online.
 
+[![Django CI](https://github.com/SousaPedro11/loan-books-api/actions/workflows/django.yml/badge.svg)](https://github.com/SousaPedro11/loan-books-api/actions/workflows/django.yml)
+
 # Problema
 
 O usuário pode gerenciar livros, reservas de livro e clientes. O tempo padrão para cada reserva são três dias. Deverá
