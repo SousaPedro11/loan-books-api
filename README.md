@@ -17,11 +17,12 @@ ser calculada uma multa e juros ao dia sobre o valor da reserva, de acordo com a
 |  Acima de 5 dias |  7% | 0.6%
 
 ## Forma de cálculo
-Os cálculos serão feitos de forma não linear, visto que os juros são variáveis.
-Portanto, os juros serão fragmentados por período.
 
-Caso tenha 3 dias, os juros serão calculados a partir desse. Caso tenha 5 dias, os juros serão a soma da regra para os
-3 dias mais a regra para a diferença dos períodos das duas regras.
+Os cálculos serão feitos de forma não linear, visto que os juros são variáveis. Portanto, os juros serão fragmentados
+por período.
+
+Caso tenha 3 dias, os juros serão calculados a partir desse. Caso tenha 5 dias, os juros serão a soma da regra para os 3
+dias mais a regra para a diferença dos períodos das duas regras.
 
 Tanto os valores fixos por intervalo quanto os vaiáveis por dia serão calculados a partir do valor base.
 
@@ -307,6 +308,7 @@ Exemplo de objeto Lista de Reservas de todos os clientes "/api/v1/reservation/":
 ```
 
 ## Swagger
+
 Foi implementado a documentação das rotas da API via Swagger
 
 - GET - /api/v1/openapi/ - documantação no swagger
@@ -390,6 +392,7 @@ Em breve
 Em breve
 
 # Deploy
+
 Foi implementado workflow de CI/CD com GitHub + Heroku
 
 Link da aplicação: [loan-books-api](https://loan-books-api.herokuapp.com/api/v1/openapi/#/)
