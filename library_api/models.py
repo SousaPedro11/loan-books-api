@@ -3,6 +3,7 @@ from decimal import Decimal, getcontext
 
 from django.db import models
 from django.db.models import Lookup, Field
+from rest_framework.exceptions import ValidationError
 
 from library_api.util import Penalty, InterestPerDay
 
@@ -43,6 +44,8 @@ class Book(models.Model):
                 val = getattr(self, field_name, False)
                 if val:
                     setattr(self, field_name, val.upper())
+        if Book.objects.filter(title=self.title, author=self.author, edition=self.edition).first():
+            raise ValidationError(detail="Book already exists!")
         super(Book, self).save(*args, **kwargs)
 
     def __str__(self):

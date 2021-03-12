@@ -1,5 +1,7 @@
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError, APIException
 from rest_framework.response import Response
 
 from library_api import filters
@@ -16,7 +18,6 @@ class BookViewSet(BaseDefaultViewset):
 
     @action(detail=True, methods=['POST'])
     def reserve(self, request, pk=None):
-        self.serializer_class = ReservationSerializer
         data = {
             'client': request.data.get('client', None),
             'book': pk
@@ -26,6 +27,16 @@ class BookViewSet(BaseDefaultViewset):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super(BookViewSet, self).create(request, *args, **kwargs)
+        except ValidationError as e:
+            return Response({"detail": e.detail}, exception=e, status=status.HTTP_400_BAD_REQUEST)
+        except APIException as e:
+            return Response({"detail": e.detail}, exception=e, status=status.HTTP_400_BAD_REQUEST)
+        except IntegrityError as e:
+            return Response({"detail": e.__repr__()}, exception=e, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ClientViewSet(BaseDefaultViewset):
@@ -39,6 +50,8 @@ class ClientViewSet(BaseDefaultViewset):
         client = self.get_object()
         reservation_serializer = ReservationSerializer(client.client_reservation, many=True)
         return Response(reservation_serializer.data, status.HTTP_200_OK)
+
+
 
 
 class ReservationViewSet(BaseDefaultViewset):
