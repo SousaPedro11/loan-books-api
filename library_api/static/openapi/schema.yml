@@ -1620,15 +1620,15 @@ paths:
           description: ''
       tags:
       - api
-  /api/v1/reservation/{id}/:
+  /api/v1/reservation/{book}/:
     get:
       operationId: retrieveReservation
       description: ''
       parameters:
-      - name: id
+      - name: book
         in: path
         required: true
-        description: A unique integer value identifying this Reservation.
+        description: ''
         schema:
           type: string
       - name: client_name
@@ -1767,10 +1767,10 @@ paths:
       operationId: updateReservation
       description: ''
       parameters:
-      - name: id
+      - name: book
         in: path
         required: true
-        description: A unique integer value identifying this Reservation.
+        description: ''
         schema:
           type: string
       - name: client_name
@@ -1920,10 +1920,10 @@ paths:
       operationId: partialUpdateReservation
       description: ''
       parameters:
-      - name: id
+      - name: book
         in: path
         required: true
-        description: A unique integer value identifying this Reservation.
+        description: ''
         schema:
           type: string
       - name: client_name
@@ -2073,10 +2073,10 @@ paths:
       operationId: destroyReservation
       description: ''
       parameters:
-      - name: id
+      - name: book
         in: path
         required: true
-        description: A unique integer value identifying this Reservation.
+        description: ''
         schema:
           type: string
       - name: client_name
@@ -2207,6 +2207,37 @@ paths:
           description: ''
       tags:
       - api
+  /api/v1/book/{id}/reserve/:
+    post:
+      operationId: reserveBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Book.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
 components:
   schemas:
     Book:
@@ -2277,6 +2308,10 @@ components:
         id:
           type: integer
           readOnly: true
+        book:
+          type: integer
+        client:
+          type: integer
         reserved_at:
           type: string
           format: date
@@ -2287,10 +2322,15 @@ components:
           nullable: true
         active:
           type: boolean
-        book:
-          type: integer
-        client:
-          type: integer
+        delayed_days:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          readOnly: true
+        total_price:
+          type: string
+          readOnly: true
       required:
       - book
       - client
