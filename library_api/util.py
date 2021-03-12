@@ -20,11 +20,20 @@ class Tax:
         return value * Decimal(tax)
 
     def _get_value_delayed(self, value):
+        percent_value_three = self._get_percent_value(value, self.TAX_LESS_THREE_DAYS)
         if 0 < self.loan_days <= 3:
-            return self._get_percent_value(value, self.TAX_LESS_THREE_DAYS)
+            value += percent_value_three
         elif 3 < self.loan_days <= 5:
-            return self._get_percent_value(value, self.TAX_OVER_THREE_DAYS)
-        return self._get_percent_value(value, self.TAX_OVER_FIVE_DAYS)
+            value += percent_value_three
+            percent_value_five = self._get_percent_value(value, self.TAX_OVER_THREE_DAYS)
+            value += percent_value_five
+        elif self.loan_days > 5:
+            value += percent_value_three
+            percent_value_five = self._get_percent_value(value, self.TAX_OVER_THREE_DAYS)
+            value += percent_value_five
+            percent_value_over = self._get_percent_value(value, self.TAX_OVER_FIVE_DAYS)
+            value += percent_value_over
+        return value
 
 
 class Penalty(Tax):
@@ -33,7 +42,8 @@ class Penalty(Tax):
     TAX_OVER_FIVE_DAYS = 0.07
 
     def calculate(self, value):
-        return super(Penalty, self)._get_value_delayed(value)
+        value = super(Penalty, self)._get_value_delayed(value)
+        return value
 
 
 class InterestPerDay(Tax):
@@ -42,30 +52,16 @@ class InterestPerDay(Tax):
     TAX_OVER_FIVE_DAYS = 0.006
 
     def calculate_interest_day(self, value: Decimal, tax: float, day: int):
-        return value * ((1 + Decimal(tax)) ** day)
+        return value * ((1 + Decimal(tax)) ** day) - value
 
     def calculate(self, value: Decimal):
         if 0 < self.loan_days <= 3:
-            return self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, self.loan_days)
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, self.loan_days)
         elif 3 < self.loan_days <= 5:
-            return self.calculate_interest_day(
-                value,
-                self.TAX_LESS_THREE_DAYS,
-                3
-            ) + self.calculate_interest_day(
-                value,
-                self.TAX_OVER_THREE_DAYS,
-                self.loan_days - 3)
-        return self.calculate_interest_day(
-            value,
-            self.TAX_LESS_THREE_DAYS,
-            3
-        ) + self.calculate_interest_day(
-            value,
-            self.TAX_OVER_THREE_DAYS,
-            self.loan_days - 3
-        ) + self.calculate_interest_day(
-            value,
-            self.TAX_OVER_FIVE_DAYS,
-            self.loan_days - 5
-        )
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, 3)
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, self.loan_days - 3)
+        elif self.loan_days > 5:
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, 3)
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, self.loan_days - 3)
+            value += self.calculate_interest_day(value, self.TAX_LESS_THREE_DAYS, self.loan_days - 5)
+        return value

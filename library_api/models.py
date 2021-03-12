@@ -71,6 +71,7 @@ class Client(models.Model):
 
 class Reservation(models.Model):
     MAX_DAYS = 3
+    tax = 0
     book = models.ForeignKey('Book', on_delete=models.PROTECT, related_name='reservation_books')
     client = models.ForeignKey('Client', on_delete=models.PROTECT, related_name='client_reservation')
     reserved_at = models.DateField(auto_now_add=True)
@@ -102,9 +103,9 @@ class Reservation(models.Model):
         getcontext().prec = 4
         if self.delayed_days > 0:
             reservation_price = self.book.reservation_price
-            penalty = Penalty(self.delayed_days).calculate(reservation_price)
-            interest_per_day = InterestPerDay(self.delayed_days).calculate(reservation_price)
-            return penalty + interest_per_day
+            penalty = Penalty(self.delayed_days).calculate(reservation_price) - reservation_price
+            interest_per_day = InterestPerDay(self.delayed_days).calculate(reservation_price) - reservation_price
+            return reservation_price + penalty + interest_per_day
         return Decimal(0)
 
     def __str__(self):
