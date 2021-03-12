@@ -44,4 +44,4 @@ jobs:
 
     - name: Test
       run: |
-        python manage.py test --verbosity 3
+        pytest -vvv
