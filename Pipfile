@@ -17,6 +17,8 @@ django-heroku = "*"
 django-filter = "*"
 pytest-django = "*"
 gunicorn = "*"
+mimesis-factory = "*"
+factory-boy = "*"
 
 [dev-packages]
 autopep8 = "*"
