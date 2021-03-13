@@ -8,7 +8,7 @@ from library_api.tests.factories.book import BookFactory
 from library_api.tests.factories.client import ClientFactory
 
 
-class TestClient(TestCase):
+class TestReservation(TestCase):
 
     def setUp(self) -> None:
         self.length = 10
@@ -94,66 +94,3 @@ class TestClient(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(int(json.loads(response.content)["count"]), 10)
-
-    # def test_get_only(self):
-    #     client = self.clients[-1]
-    #     url = reverse(self.url_detail, kwargs={'pk': client.pk})
-    #     expected = ClientSerializer(client)
-    #     response = self.client.get(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data, expected.data)
-    #
-    # def test_get_only_not_found(self):
-    #     url = reverse(self.url_detail, kwargs={'pk': self.length * 10})
-    #     response = self.client.get(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-    #
-    # def test_post_valid(self):
-    #     client = ClientFactory.simple_generate(create=False)
-    #     client.id = len(self.clients) + 1
-    #     data = ClientSerializer(client).data
-    #     response = self.client.post(self.url_list, data, format='json')
-    #     response_verification = self.client.get(self.url_list)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(int(json.loads(response_verification.content)["count"]), self.length + 1)
-    #
-    # def test_post_invalid(self):
-    #     invalid_data = {}
-    #     response = self.client.post(self.url_list, invalid_data, format='json')
-    #     response_verification = self.client.get(self.url_list)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-    #     self.assertEqual(int(json.loads(response_verification.content)["count"]), self.length)
-    #
-    # def test_post_invalid_already_exists(self):
-    #     client = self.clients[-1]
-    #     data = ClientSerializer(client).data
-    #     response = self.client.post(self.url_list, data, format='json')
-    #     response_verification = self.client.get(self.url_list)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-    #     self.assertEqual(int(json.loads(response_verification.content)["count"]), self.length)
-    #
-    # def test_update(self):
-    #     client_setup = self.clients[-1]
-    #     url = reverse(self.url_detail, kwargs={'pk': client_setup.pk})
-    #     client = ClientFactory.simple_generate(create=False)
-    #     client.id = client_setup.pk
-    #     data = ClientSerializer(client).data
-    #
-    #     response = self.client.patch(url, data, format='json', content_type='application/json')
-    #     response_verify = self.client.get(url)
-    #     instance_expected = response_verify.data.serializer.instance
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(instance_expected, client)
-    #
-    # def test_delete(self):
-    #     client_setup = self.clients[-1]
-    #     url = reverse(self.url_detail, kwargs={'pk': client_setup.pk})
-    #     response = self.client.delete(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
