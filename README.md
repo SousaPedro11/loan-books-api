@@ -389,6 +389,10 @@ ou
 pytest -vvv
 ```
 
+### Status atual de Coverage
+
+![coverage](.github/img/pytest.png)
+
 ## Executar o projeto
 
 `````bash
