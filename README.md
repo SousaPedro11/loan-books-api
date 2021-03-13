@@ -373,8 +373,20 @@ python manage.py migrate
 
 ## Testes unitários:
 
+### Sem mostrar coverage
 ```bash
 python manage.py test --verbosity 3
+```
+
+### Mostrando coverage
+- Apenas mostrando testcases, status e coverage
+```bash
+pytest
+```
+ou
+- Mostrando todas as informações (modo verboso)
+```bash
+pytest -vvv
 ```
 
 ## Executar o projeto
