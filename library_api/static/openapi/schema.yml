@@ -2313,7 +2313,7 @@ components:
           maxLength: 100
         username:
           type: string
-          maxLength: 20
+          maxLength: 80
         email:
           type: string
           format: email

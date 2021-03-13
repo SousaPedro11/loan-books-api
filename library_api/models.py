@@ -44,7 +44,8 @@ class Book(models.Model):
                 val = getattr(self, field_name, False)
                 if val:
                     setattr(self, field_name, val.upper())
-        if Book.objects.filter(title=self.title, author=self.author, edition=self.edition).first():
+        if Book.objects.filter(title=self.title, author=self.author, edition=self.edition,
+                               reserved=self.reserved).first():
             raise ValidationError(detail="Book already exists!")
         super(Book, self).save(*args, **kwargs)
 
